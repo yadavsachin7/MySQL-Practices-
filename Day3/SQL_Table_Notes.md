@@ -92,10 +92,6 @@ salary INT DEFAULT 10000 CHECK(salary>=10000);
 -   UNIQUE prevents duplicates.
 -   SELECT specific columns instead of \* whenever possible.
 
-## Correction
 
-`DEFAULT 0 CHECK(salary>=10000)` conflicts. Use `DEFAULT 10000` or
-remove DEFAULT.
-
-Author 
+## Author 
 Sachin Yadav  

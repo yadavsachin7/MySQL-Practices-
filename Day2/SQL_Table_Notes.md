@@ -107,13 +107,7 @@ VALUES (101,'Indigo','India',10);
 -   Add `PRIMARY KEY` to ID columns.
 -   Use `AUTO_INCREMENT` for IDs.
 -   Add `NOT NULL` where required.
--   Fix spelling:
-    -   TotleBed → TotalBed
-    -   ExameDate → ExamDate
--   `Phone BIGINT(50)` and `Budget BIGINT(100)` should simply be
-    `BIGINT`.
--   `Title` in Movies appears to be `INT`; if it stores a movie title,
-    use `VARCHAR`.
+-   
 
 ## Learning Order
 
