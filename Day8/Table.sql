@@ -139,3 +139,101 @@ INSERT INTO tbl_orders VALUES
     from tbl_orders 
     left join tbl_customers
     on   tbl_orders.CustomerID = tbl_customers.CustomerID where OrderDate between 2026-07-02 and 2026-07-06;
+
+    #F. Aggregate Functions with JOIN
+#1. Count the number of orders placed by each customer.
+	select count(*) , OrderID
+	from tbl_orders 
+    left join tbl_customers
+    on   tbl_orders.CustomerID = tbl_customers.CustomerID
+    group by OrderID ;
+	
+#2. Display the total amount spent by each customer.
+	select sum(Price) ,CustomerName 
+	from tbl_orders 
+    left join tbl_customers
+    on   tbl_orders.CustomerID = tbl_customers.CustomerID
+	group by CustomerName ;
+        
+#3. Display the average order amount for each customer.
+	select avg(Price) ,CustomerName 
+	from tbl_orders 
+    inner join tbl_customers
+    on   tbl_orders.CustomerID = tbl_customers.CustomerID
+	group by CustomerName ;
+#4. Find the highest-priced product purchased by each customer.
+	select max(Price) ,CustomerName 
+	from tbl_orders 
+    inner join tbl_customers
+    on   tbl_orders.CustomerID = tbl_customers.CustomerID
+	group by CustomerName ;
+#5. Find customers who placed more than one order.
+	select count(*) ,CustomerName 
+	from tbl_orders 
+    left join tbl_customers
+    on   tbl_orders.CustomerID = tbl_customers.CustomerID
+	group by CustomerName 
+    having count(*) > 1 ;
+#G. Sorting
+#1. Display all orders sorted by price in descending order.
+	select * from tbl_orders order by Price desc ;
+    
+#2. Display customer names in alphabetical order with their products.
+	select * from tbl_customers c inner join tbl_orders o
+    on c.CustomerID = o.CustomerID  order by CustomerName  ;
+
+#3. Display orders sorted by Order Date.
+	select * from  tbl_orders 
+	order by OrderDate  ;
+#4. Display customers sorted by city.
+	select * from  tbl_customers
+	order by  city ; 
+    
+#H. Advanced JOIN Practice
+###1. Find customers who purchased more than one different product.
+	select distinct count(*) , CustomerName  from tbl_customers c
+    inner join tbl_orders o 
+    on c.CustomerID = o.CustomerID 
+    group by CustomerName
+    having count(*) >1 ;
+#2. Display the total revenue generated from all orders.
+	select sum(Price)   from tbl_customers c
+    right join tbl_orders o 
+    on c.CustomerID = o.CustomerID ;
+    
+#3. Find the city with the highest sales amount.
+	select  max(Price) , City  from tbl_customers c
+    inner join tbl_orders o 
+    on c.CustomerID = o.CustomerID 
+    group by City;
+#4. Display customers who spent more than ₹10,000.
+	select  count(Price) , CustomerName  from tbl_customers c
+    inner join tbl_orders o 
+    on c.CustomerID = o.CustomerID 
+    group by CustomerName
+    having count(Price) >10000 ;
+#5. Display the customer who placed the most orders.
+	select  count(*) , CustomerName  from tbl_customers c
+    inner join tbl_orders o 
+    on c.CustomerID = o.CustomerID 
+    group by CustomerName
+    order by count(*) desc
+    limit 0,2 ;
+#6. Find the customer who purchased the most expensive product.
+	select  max(Price) , CustomerName   from tbl_customers c
+    inner join tbl_orders o 
+    on c.CustomerID = o.CustomerID ;
+#I. Foreign Key Practice (ON DELETE & ON UPDATE)
+#1. Update CustomerID = 101 to 201. Verify that the CustomerID is automatically updated in the
+	update tbl_customers set CustomerId = 201 where CustomerID = 101;
+    
+#Orders table.
+#2. Delete the customer with CustomerID = 103. Verify that all related orders are automatically eleted
+	delete from tbl_customers where CustomerID = 103;
+
+#3. Insert a new customer and place two orders for that customer.
+	
+#4. Display the updated records from both tables after performing task 1 to 4
+	select * from tbl_customers inner join  tbl_orders 
+    on tbl_customers.CustomerID = tbl_orders.CustomerID;
+
